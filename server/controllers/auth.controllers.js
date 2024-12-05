@@ -73,8 +73,14 @@ const loginUser = async (req, res) => {
     }
 }
 
+const updateUser = async (req, res) => {
+    console.log(req.body)
+    await User.updateOne({_id: req.body._id}, {firstname: "Parth"})
+    res.send({success: true, message: 'Data Updated Successfully!!'})
+}
 module.exports = {
     test,
     registerUser,
-    loginUser
+    loginUser, 
+    updateUser
 }

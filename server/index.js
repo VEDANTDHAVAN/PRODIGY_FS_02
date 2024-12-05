@@ -20,3 +20,4 @@ app.use('/', require('./routes/auth.routes.js'))
 const port = 8000;
 app.use('/', require('./routes/auth.routes'))
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+  
