@@ -2,14 +2,16 @@
 
 :root {
   --light-green: #fffb05;
-  --dark-blue: #096efc;
+  --dark-blue: #0048ac;
   --darker-green: #ff09a1;
   --white: #fff;
   --light-yellow: #f4efc7;
   --bold-text-color: #1e375a;
   --light-text-color: rgba(29, 58, 34, 0.7);
   --font-family: "Poppins", sans-serif;
-  --light-blue: #c6fff5;
+  --light-blue: #46fff3;
+  --green:#7fff2f ;
+  --red: #f90000;
 }
 
 * {
@@ -87,7 +89,8 @@ p {
 }
 
 .btn:hover {
-  background-color: var(--darker-green);
+  background-color: var(--green);
+  -webkit-text-fill-color: black;
 }
 
 .disabled {

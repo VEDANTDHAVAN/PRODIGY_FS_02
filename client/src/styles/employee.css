@@ -1,0 +1,122 @@
+@import url(app.css);
+.delete-btn {
+    color: var(--white);
+    background-color: var(--red);
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-family);
+  }
+
+  .employee-container {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    max-width: fit-content;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .addContainer {
+    position: absolute;
+    background-color: peachpuff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .addContainer form{
+    width: 420px;
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 10px 10px  5px rgba(0,0,0.6);
+    border-radius: 10px;
+    z-index: 4;
+  }
+
+  .addContainer form .close-btn {
+    margin-left: auto;
+    font-size: 28px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .tableContainer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 5px 10px rgba(0,0,0.4);
+    border-radius: 10px;
+    z-index: 0;
+  }
+
+  .tableContainer table thead tr {
+    background-color: rgb(0, 0, 0);
+  }
+  .tableContainer table thead tr th{
+    min-width: 200px;
+    background-color: orange;
+    padding: 5px;    
+  }
+  
+  .tableContainer table tbody tr td {
+    border-bottom: 1px solid black;
+    padding: 5px;
+    font-size: large;
+  }
+
+  .btn2 {
+    color: var(--black);
+    background-color: var(--light-green);
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    box-shadow: 2px 2px 4px ;
+  }
+  
+  .btn2:hover {
+    background-color: var(--green);
+    -webkit-text-fill-color: black;
+  }
+
+  .btn3 {
+    color: var(--black);
+    background-color: var(--red);
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    box-shadow: 2px 2px 4px;
+  }
+
+  .btn3:hover {
+    background-color: var(--green);
+    -webkit-text-fill-color: black;
+  }

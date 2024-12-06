@@ -73,14 +73,35 @@ const loginUser = async (req, res) => {
     }
 }
 
+//read user data
+//http://localhost:8000/
+const readUser = async (req, res) => {
+    const data = await User.find({})
+    res.json({success: true, data: data})
+}
+//update user data
+//http://localhost:8000/api/update
 const updateUser = async (req, res) => {
     console.log(req.body)
-    await User.updateOne({_id: req.body._id}, {firstname: "Parth"})
-    res.send({success: true, message: 'Data Updated Successfully!!'})
+    const {_id , ...rest} = req.body
+    console.log(rest)
+    const data = await User.updateOne({_id: _id},rest)
+    res.send({success: true, message: 'Data Updated Successfully!!', data: data})
+}
+
+//delete user
+//http://localhost:8000/api/delete
+const deleteUser = async (req, res) => {
+    const id = req.params.id
+    console.log(id)
+    const data = await User.deleteOne({_id: id})
+    res.send({success: true, message: "Data Deleted Successfully!!", data: data})
 }
 module.exports = {
     test,
     registerUser,
-    loginUser, 
-    updateUser
+    loginUser,
+    readUser, 
+    updateUser,
+    deleteUser
 }
