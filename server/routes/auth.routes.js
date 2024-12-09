@@ -15,7 +15,7 @@ router.post('/api/register', registerUser)
 router.post('/api/login', loginUser)
 router.post('/api/create', registerUser)
 router.get('/read', readUser)
-router.put('/api/update', updateUser)
+router.put('/api/update/:id', updateUser)
 router.delete('/api/delete/:id', deleteUser)
 
 module.exports = router

@@ -82,12 +82,26 @@ const readUser = async (req, res) => {
 //update user data
 //http://localhost:8000/api/update
 const updateUser = async (req, res) => {
-    console.log(req.body)
-    const {_id , ...rest} = req.body
-    console.log(rest)
-    const data = await User.updateOne({_id: _id},rest)
-    res.send({success: true, message: 'Data Updated Successfully!!', data: data})
-}
+    console.log("Request Body: ",req.body);
+    console.log("Request Params:", req.params);
+    const {id} = req.params;
+    const {firstname, lastname, email} = req.body;
+    try {
+        const updatedUser = await User.findByIdAndUpdate( id, {firstname, lastname, email},
+          {new: true, runValidators: true}
+        );
+        if(!updatedUser) {
+            console.log("User not found or not Updated.");
+            return res.status(404).json({error: "User not Updated!"})
+        }
+        res.status(200).send({message: "User Updated Successfully!!", user: updatedUser});
+    } catch (error) {
+        console.error("Error Updating User:",error);
+        res.status(500).json({error: "Internal Server Error."});
+    }
+    /*const data = await User.updateOne({_id: _id},rest)
+    res.send({success: true, message: 'Data Updated Successfully!!', data: data})*/
+};
 
 //delete user
 //http://localhost:8000/api/delete

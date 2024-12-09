@@ -18,8 +18,18 @@ function EmployeeList() {
     email: '', 
     password: '', 
     confpassword: ''
-  })
-  const [dbData, setDbData] = useState([])
+  });
+  const [dataEdit, setDataEdit] = useState({
+    firstname:'',
+    lastname: '',
+    email: '', 
+    password: '', 
+    confpassword: '',
+    id: ""
+  });
+  const [dbData, setDbData] = useState([]);
+  const [editdata, setEditData] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const createEmployee = async (e) => {
     e.preventDefault();
     const {firstname, lastname, email, password, confpassword} = data
@@ -75,8 +85,51 @@ function EmployeeList() {
         fetchData();
   }
 
+  /*const updateEmployee = async (_id) => {
+    const {firstname, lastname, email, password, confpassword} = data
+    console.log(data);
+    toast.success('Employee Updated Successfully!!');
+    const response = await axios.get('/read');
+    console.log(response.data);
+        if(response.data.success){
+          setDbData(response.data.data || []);
+        } 
+        fetchData();
+  }*/
 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/api/update/${selectedUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstname: selectedUser.firstname,
+          lastname: selectedUser.lastname,
+          email: selectedUser.email,
+        }),
+      });
+
+      if(response.ok) {
+        alert("User Updated SuccessFully!!");
+        setEditData(false);
+        fetchData();
+      } else if (response.status == 404){
+        alert("User not Found!");
+      } else {
+        console.error("Unexpected Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error Updating User: ", error );
+    }
+  };
   
+  const handleEdit = (user)=>{
+     setSelectedUser(user);
+     setEditData(true);
+  }
   return (
     <>
      <div className='employee-container'>
@@ -141,6 +194,51 @@ function EmployeeList() {
           </div>
         )
       }
+
+      {
+        editdata && selectedUser && (
+          <div className='addContainer'>
+           <form
+          onSubmit={handleFormSubmit}
+          className="register-form"
+           >
+            <div className="close-btn" onClick={()=> setEditData(false)}><CancelOutlinedIcon/></div>
+            <h2 className="form-heading">Edit Employee Details!!</h2>
+            <input
+            type="text"
+            name="firstname"
+            className="form-input"
+            placeholder="Enter firstname"
+            value={selectedUser.firstname}
+            onChange={(e) => setSelectedUser({...selectedUser, firstname: e.target.value})}
+
+            />
+            <input
+            type="text"
+            name="lastname"
+            className="form-input"
+            placeholder="Enter lastname"
+            value={selectedUser.lastname}
+            onChange={(e) => setSelectedUser({...selectedUser, lastname: e.target.value})}
+            />
+            <input
+            type="email"
+            name="email"
+            className="form-input"
+            placeholder="Enter email"
+            value={selectedUser.email}
+            onChange={(e) => setSelectedUser({...selectedUser, email: e.target.value})}
+            />
+             <button
+            type="submit"
+            className="btn form-btn"
+             >
+            Edit
+             </button>
+            </form>
+          </div>
+        )
+      }
       <div className="tableContainer">
         <table>
           <thead>
@@ -159,7 +257,7 @@ function EmployeeList() {
                     <td>{item.firstname}</td>
                     <td>{item.lastname}</td>
                     <td>{item.email}</td>
-                    <td><button className="btn2 btn-edit">Edit</button>
+                    <td><button className="btn2 btn-edit" onClick={() => handleEdit(item)}>Edit</button>
                     <button className="btn3 btn-edit" onClick={()=> handleDelete(item._id)}>Delete</button></td>  
                   </tr>
                 ))
@@ -178,3 +276,66 @@ function EmployeeList() {
 }
 
 export default EmployeeList
+
+/*
+<div className='employee-container'>
+      <button className='btn' onClick={()=> setAdd(true)}> Add Employee</button>
+      
+      {
+        add && (
+          <div className='addContainer'>
+           <form
+          onSubmit={createEmployee}
+          className="register-form"
+           >
+            <div className="close-btn" onClick={()=> setAdd(false)}><CancelOutlinedIcon/></div>
+            <h2 className="form-heading">Add Employee Details!!</h2>
+            <input
+            type="text"
+            name="firstname"
+            className="form-input"
+            placeholder="Enter firstname"
+            value={data.firstname}
+            onChange={(e) => setData({...data, firstname: e.target.value})}
+            />
+            <input
+            type="text"
+            name="lastname"
+            className="form-input"
+            placeholder="Enter lastname"
+            value={data.lastname}
+            onChange={(e) => setData({...data, lastname: e.target.value})}
+            />
+            <input
+            type="email"
+            name="email"
+            className="form-input"
+            placeholder="Enter email"
+            value={data.email}
+            onChange={(e) => setData({...data, email: e.target.value})}
+            />
+            <input
+            type="password"
+            name="password"
+            className="form-input"
+            placeholder="Enter password"
+            value={data.password}
+            onChange={(e) => setData({...data, password: e.target.value})}
+            />
+            <input
+            type="password"
+            name="confpassword"
+            className="form-input"
+            placeholder="Confirm your password"
+            value={data.confpassword}
+            onChange={(e) => setData({...data, confpassword: e.target.value})}
+             />
+             <button
+            type="submit"
+            className="btn form-btn"
+             >
+            Create
+             </button>
+            </form>
+          </div>
+*/ 
